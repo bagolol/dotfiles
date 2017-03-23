@@ -80,6 +80,8 @@ Plugin 'gmarik/Vundle.vim'
 " Plugin 'SirVer/ultisnips'
 
 " ----------------------------------------------------------
+" -- [RAINBOW]: parethesis matching using different colours
+Plugin 'kien/rainbow_parentheses.vim'
 
 " -- [CTRLP]: ctrlp (control-p) - vim fuzzy file finder
 "    (written in vimscript and has no dependencies)
@@ -124,16 +126,18 @@ Plugin 'nanotech/jellybeans.vim'
 
 " ----------------------------------------------------------
 
-" -- [YASL]: yet Anthoer Javascript Syntax
+" -- [YASL]: yet Another Javascript Syntax
 Plugin 'othree/yajs.vim'
 
+" -- [GITGUTTER]: shows diff since last commit
+Plugin 'airblade/vim-gitgutter'
 " -- Other Languages
 " Plugin 'tpope/vim-dispatch'
 " Plugin 'thoughtbot/vim-rspec'
 " Plugin 'tpope/vim-rails'
 " Plugin 'lukerandall/haskellmode-vim'
 " Plugin 'ElmCast/elm-vim'
-" Plugin 'derekwyatt/vim-scala'
+Plugin 'derekwyatt/vim-scala'
 
 " ----------------------------------------------------------
 
@@ -274,8 +278,6 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  "    emacs style undo-ing...no thanks ;)
  nnoremap U <nop>
 
- " -- end of the line
- nnoremap<leader>. $
  " ----------------------------------------------------------
  " -- COPY AND PASTE
  " ----------------------------------------------------------
@@ -313,7 +315,7 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  "    make S break a line into two lines
  nnoremap S i<CR><Esc><right>
 " -- remove white spaces
- nnoremap pp :%s/\s\+$//e<CR>
+ inoremap <leader>p :%s/\s\+$//e<CR>
  " -- some sneaky shortcuts for inserting symbols
  inoremap <Leader>h #
  inoremap <Leader>b `
@@ -329,6 +331,19 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  " -- exit visual mode quickly with ;;
  inoremap ;; <Esc>
  vnoremap ;; <Esc>"
+
+ " -- select and delete till the end of the line
+ nnoremap<leader>.. <C-v>$hc
+ " -- select till the end of the line
+ nnoremap<leader>. <C-v>$h
+ "
+ " ----------------------------------------------------------
+ " -- NAVIGATING
+ " ----------------------------------------------------------
+ " toggle to previous file
+ nnoremap <Leader>z :e#<CR>
+ " open file buffer
+ nnoremap <Leader>m :ls<CR>
  " ----------------------------------------------------------
  " -- SEARCH AND REPLACE
  " ----------------------------------------------------------
@@ -398,12 +413,38 @@ let g:airline_powerline_fonts = 1
 let g:snippetsEmu_key = "["
 
 " ----------------------------------------------------------
-" --CTRLP IGNORE
+" --[CTRLP IGNORE]
 " ----------------------------------------------------------
 let g:ctrlp_custom_ignore = '\v[\/](bower_components|node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 
-
+" ----------------------------------------------------------
+" --[RAINBOW]
+" ----------------------------------------------------------
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 " -- Grep functions
 "    These are built upon [AG] plugin
 " function! GrepSass(arg)
