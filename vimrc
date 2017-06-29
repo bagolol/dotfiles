@@ -128,13 +128,13 @@ Plugin 'nanotech/jellybeans.vim'
 
 " -- [YASL]: yet Another Javascript Syntax
 Plugin 'othree/yajs.vim'
-
+Plugin 'mxw/vim-jsx'
 " -- [GITGUTTER]: shows diff since last commit
 Plugin 'airblade/vim-gitgutter'
 " -- Other Languages
 " Plugin 'tpope/vim-dispatch'
 " Plugin 'thoughtbot/vim-rspec'
-" Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rails'
 " Plugin 'lukerandall/haskellmode-vim'
 " Plugin 'ElmCast/elm-vim'
 Plugin 'derekwyatt/vim-scala'
@@ -156,6 +156,11 @@ Plugin 'beloglazov/vim-textobj-quotes'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" -- [SPACING AUTO-DETECT]: Auto detect spacing
+Plugin 'tpope/vim-sleuth.git'
+
+" -- [PUG]: Pug syntax highlighting
+Plugin 'digitaltoad/vim-pug.git'
 " ----------------------------------------------------------
 " END VIM PLUGINS
 " ----------------------------------------------------------
@@ -299,6 +304,9 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  " ----------------------------------------------------------
  " -- EDITING
  " ----------------------------------------------------------
+ " -- tells you if the file you're working on has been modified 
+autocmd InsertEnter * checktime
+autocmd CursorHold * checktime
 
  " -- add a comma at the end of the line
  inoremap << <Esc>$a,<Esc>
@@ -315,7 +323,7 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  "    make S break a line into two lines
  nnoremap S i<CR><Esc><right>
 " -- remove white spaces
- inoremap <leader>p :%s/\s\+$//e<CR>
+ nnoremap <leader>p :%s/\s\+$//e<CR>
  " -- some sneaky shortcuts for inserting symbols
  inoremap <Leader>h #
  inoremap <Leader>b `
@@ -365,7 +373,7 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
  " ----------------------------------------------------------
  " -- INDENTATION
  " ----------------------------------------------------------
-
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
  " -- see: :help smartindent, :help expandtab,
  "         :help shiftwidth, :help autoindent
  set smartindent
@@ -445,6 +453,8 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+
 " -- Grep functions
 "    These are built upon [AG] plugin
 " function! GrepSass(arg)
