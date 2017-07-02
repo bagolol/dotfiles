@@ -1,4 +1,3 @@
-
 " | Author: James Lawson
 " | Edited by: Rocco Righi
 " | License: MIT
@@ -133,7 +132,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'airblade/vim-gitgutter'
 " -- Other Languages
 " Plugin 'tpope/vim-dispatch'
-" Plugin 'thoughtbot/vim-rspec'
+Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-rails'
 " Plugin 'lukerandall/haskellmode-vim'
 " Plugin 'ElmCast/elm-vim'
@@ -173,7 +172,8 @@ filetype plugin indent on  " required for vundle
 " ----------------------------------------------------------
 " -- ESSENTIAL BEHAVIOUR
 " ----------------------------------------------------------
-
+" make sure vim loads the right ruby version
+set shell=/bin/sh
 " -- map the vim Leader Key to comma
 let mapleader = ","
 
@@ -300,6 +300,16 @@ cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W')
 
  " -- yank till end of line
  nnoremap Y y$
+" RSpec.vim mappings
+"
+ " ----------------------------------------------------------
+ " -- RUN RUBY TESTS
+ " ----------------------------------------------------------
+
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
  " ----------------------------------------------------------
  " -- EDITING
