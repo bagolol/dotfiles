@@ -86,10 +86,13 @@ Plugin 'kien/rainbow_parentheses.vim'
 "    (written in vimscript and has no dependencies)
 Plugin 'kien/ctrlp.vim'
 
-" -- [AG]: - make it easier to grep files inside vim
+" -- [AG]: make it easier to grep files inside vim
 "    Adds `The Silver Searcher` to vim
 "    depends on [6]
 Plugin 'rking/ag.vim'
+
+" -- [VIM-CSS-COLORS]: shows css colors in code
+Plugin 'ap/vim-css-color'
 
 " ----------------------------------------------------------
 
@@ -126,19 +129,33 @@ Plugin 'nanotech/jellybeans.vim'
 " ----------------------------------------------------------
 
 " -- [YASL]: yet Another Javascript Syntax
-Plugin 'othree/yajs.vim'
+Plugin 'git@github.com:othree/yajs.vim.git'
+" Plugin 'git@github.com:pangloss/vim-javascript.git'
+
 Plugin 'mxw/vim-jsx'
 " -- [GITGUTTER]: shows diff since last commit
 Plugin 'airblade/vim-gitgutter'
+
 " -- Other Languages
-" Plugin 'tpope/vim-dispatch'
+
+" -- [RSPEC]: runs rspec inside vim
 Plugin 'thoughtbot/vim-rspec'
+
+" -- [RAILS]: syntax highlighting for Rails
 Plugin 'tpope/vim-rails'
-" Plugin 'lukerandall/haskellmode-vim'
-" Plugin 'ElmCast/elm-vim'
+
+" -- [SCALA]: syntax highlighting for Scala
 Plugin 'derekwyatt/vim-scala'
 
+" -- [RUST]: syntax highlighting for Rust
+Plugin 'rust-lang/rust.vim'
+
+" -- [Jenkins]: syntax highlighting for Jenkins
+Plugin 'martinda/Jenkinsfile-vim-syntax'
+
 " ----------------------------------------------------------
+" -- [FUGITIVE]: show git diff
+Plugin 'tpope/vim-fugitive'
 
 " -- [EXPAND]: expand selection gradually
 Plugin 'terryma/vim-expand-region'
@@ -160,6 +177,9 @@ Plugin 'tpope/vim-sleuth.git'
 
 " -- [PUG]: Pug syntax highlighting
 Plugin 'digitaltoad/vim-pug.git'
+
+" -- [TEST]: Run tests from inside vim
+Plugin 'janko-m/vim-test'
 " ----------------------------------------------------------
 " END VIM PLUGINS
 " ----------------------------------------------------------
@@ -314,7 +334,7 @@ map <Leader>a :call RunAllSpecs()<CR>
  " ----------------------------------------------------------
  " -- EDITING
  " ----------------------------------------------------------
- " -- tells you if the file you're working on has been modified 
+ " -- tells you if the file you're working on has been modified
 autocmd InsertEnter * checktime
 autocmd CursorHold * checktime
 
@@ -323,6 +343,9 @@ autocmd CursorHold * checktime
 
  " -- add a new line in normal mode
  nmap <CR> o<Esc>k
+
+ " delete-til-bottom
+ nnoremap \\  VGd
 
  " auto-complete
  inoremap ff <C-p>
@@ -464,7 +487,13 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
+" ----------------------------------------------------------
+" --[CHECK COMMIT LENGTH]
+" ----------------------------------------------------------
 
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+let g:airline_powerline_fonts = 0
 " -- Grep functions
 "    These are built upon [AG] plugin
 " function! GrepSass(arg)
